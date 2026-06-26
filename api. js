@@ -1,1 +1,5 @@
+function futureAI(question){
 
+return "ИИ будет подключён позже через API. Ваш вопрос: " + question;
+
+}

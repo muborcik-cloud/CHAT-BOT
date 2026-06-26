@@ -1,93 +1,74 @@
 function sendMessage() {
 
-    let input = document.getElementById("userInput");
-    let messages = document.getElementById("messages");
+const input = document.getElementById("userInput");
+const messages = document.getElementById("messages");
 
-    let text = input.value.trim();
+const text = input.value.trim();
 
-    if(text === "") return;
+if(text === "") return;
 
-    messages.innerHTML += `
-    <div class="user-message">
-        ${text}
-    </div>
-    `;
+messages.innerHTML += `
+<div class="user-message">
+👤 ${text}
+</div>
+`;
 
-    let answer = "";
+let answer = "";
 
-    let lower = text.toLowerCase();
+const msg = text.toLowerCase();
 
-    if(lower.includes("привет")){
-        answer = "Привет! Я Muboriz AI. Чем могу помочь?";
-    }
-
-    else if(lower.includes("как дела")){
-        answer = "Отлично! Готов помогать тебе.";
-    }
-
-    else if(lower.includes("кто тебя создал")){
-        answer = "Меня создал Мубориз.";
-    }
-
-    else if(lower.includes("контакт")){
-        answer = "Телефон: +992 011 900 303";
-    }
-
-    else if(lower.includes("сайт")){
-        answer = "Я могу рассказывать о сайтах и веб-разработке.";
-    }
-
-    else if(lower.includes("цена")){
-        answer = "Стоимость зависит от проекта.";
-    }
-
-    else if(lower.includes("душанбе")){
-        answer = "Душанбе — столица Таджикистана.";
-    }
-
-    else if(lower.includes("время")){
-        answer = new Date().toLocaleTimeString();
-    }
-
-    else if(lower.includes("дата")){
-        answer = new Date().toLocaleDateString();
-    }
-
-    else if(lower.includes("спасибо")){
-        answer = "Всегда пожалуйста!";
-    }
-
-    else if(lower.includes("помощь")){
-        answer = "Я могу отвечать на вопросы, считать примеры и помогать с сайтами.";
-    }
-
-    else {
-        const randomAnswers = [
-            "Интересный вопрос.",
-            "Расскажи подробнее.",
-            "Я думаю над ответом.",
-            "Можешь уточнить?",
-            "Это хорошая идея.",
-            "Я пока изучаю этот вопрос.",
-            "Попробуй спросить иначе."
-        ];
-
-        answer = randomAnswers[
-            Math.floor(Math.random() * randomAnswers.length)
-        ];
-    }
-
-    setTimeout(() => {
-
-        messages.innerHTML += `
-        <div class="bot-message">
-            🤖 ${answer}
-        </div>
-        `;
-
-        messages.scrollTop = messages.scrollHeight;
-
-    }, 500);
-
-    input.value = "";
+if(msg.includes("привет")){
+answer = "Привет! Я Muboriz AI.";
 }
+
+else if(msg.includes("контакт")){
+answer = "Наш босс: Мубориз. Телефон: +992 011 900 303";
+}
+
+else if(msg.includes("помощь")){
+answer = "Я могу отвечать на простые вопросы.";
+}
+
+else if(msg.includes("сайт")){
+answer = "Это сайт Muboriz AI.";
+}
+
+else if(msg.includes("кто тебя создал")){
+answer = "Меня создал Мубориз.";
+}
+
+else if(msg.includes("как дела")){
+answer = "Отлично!";
+}
+
+else{
+
+answer = "Я пока изучаю этот вопрос.";
+
+}
+
+setTimeout(() => {
+
+messages.innerHTML += `
+<div class="bot-message">
+🤖 ${answer}
+</div>
+`;
+
+messages.scrollTop = messages.scrollHeight;
+
+},500);
+
+input.value = "";
+
+}
+
+document.addEventListener("keypress",function(e){
+
+if(e.key==="Enter"){
+
+sendMessage();
+
+}
+
+});

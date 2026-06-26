@@ -1,13 +1,23 @@
 function speak(text){
 
-let speech = new SpeechSynthesisUtterance(text);
+if(!("speechSynthesis" in window)){
+return;
+}
+
+window.speechSynthesis.cancel();
+
+const speech = new SpeechSynthesisUtterance(text);
 
 speech.lang = "ru-RU";
-
 speech.rate = 1;
-
 speech.pitch = 1;
 
 window.speechSynthesis.speak(speech);
+
+}
+
+function stopVoice(){
+
+window.speechSynthesis.cancel();
 
 }

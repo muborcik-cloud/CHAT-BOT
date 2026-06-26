@@ -1,1 +1,33 @@
+function sendMessage() {
 
+let input = document.getElementById("userInput");
+let messages = document.getElementById("messages");
+
+let text = input.value.trim();
+
+if(text==="") return;
+
+messages.innerHTML +=
+"<p><b>Вы:</b> "+text+"</p>";
+
+let answer = "Я пока не знаю ответ.";
+
+if(text.toLowerCase().includes("привет"))
+answer = "Привет! Я чат-бот Мубориза.";
+
+else if(text.toLowerCase().includes("контакты"))
+answer = "Наш босс: Мубориз. Телефон: +992 011 900 303";
+
+else if(text.toLowerCase().includes("помощь"))
+answer = "Я могу отвечать на простые вопросы и помогать с математикой.";
+
+else if(text.toLowerCase().includes("сайт"))
+answer = "Этот сайт создан Муборизом.";
+
+messages.innerHTML +=
+"<p style='color:gold'><b>Бот:</b> "+answer+"</p>";
+
+messages.scrollTop = messages.scrollHeight;
+
+input.value="";
+}

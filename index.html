@@ -1,105 +1,263 @@
-<!DOCTYPE html><html lang="ru">
+<!DOCTYPE html>
+<html lang="ru">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ЧАТ-БОТ</title><style>
+<title>ЧАТ-БОТ</title>
+
+<style>
 body{
 margin:0;
 font-family:Arial,sans-serif;
 background:#111;
-color:#fff;
-text-align:center;
+color:white;
 }
 
 header{
-padding:50px 20px;
-background:linear-gradient(135deg,#000,#222);
+background:linear-gradient(90deg,#000,#b8860b);
+padding:20px;
+text-align:center;
 }
 
 h1{
-font-size:48px;
+margin:0;
+font-size:38px;
 color:gold;
 }
 
-p{
-font-size:18px;
-}
-
-.box{
-max-width:700px;
-margin:30px auto;
-padding:20px;
-}
-
-input{
-width:80%;
-padding:12px;
-border:none;
-border-radius:10px;
+.subtitle{
+margin-top:10px;
 font-size:16px;
 }
 
+nav{
+display:flex;
+justify-content:center;
+gap:10px;
+padding:15px;
+flex-wrap:wrap;
+}
+
 button{
-margin-top:15px;
-padding:12px 25px;
-border:none;
-border-radius:10px;
 background:gold;
 color:black;
-font-weight:bold;
-font-size:18px;
-cursor:pointer;
-}
-
-#answer{
-margin-top:20px;
-padding:15px;
-background:#222;
+border:none;
+padding:10px 15px;
 border-radius:10px;
+font-weight:bold;
+cursor:pointer;
+transition:0.3s;
 }
 
-.footer{
-margin-top:50px;
+button:hover{
+transform:scale(1.1);
+}
+
+.section{
 padding:20px;
+}
+
+.chat-box{
+background:#1a1a1a;
+border:2px solid gold;
+border-radius:15px;
+padding:15px;
+max-width:700px;
+margin:auto;
+}
+
+#messages{
+height:250px;
+overflow-y:auto;
+background:#000;
+padding:10px;
+border-radius:10px;
+margin-bottom:10px;
+}
+
+input{
+width:70%;
+padding:10px;
+border-radius:10px;
+border:none;
+}
+
+.send-btn{
+width:25%;
+}
+
+.card{
+background:#1a1a1a;
+padding:15px;
+border-radius:15px;
+margin-top:15px;
+border:1px solid gold;
+}
+
+footer{
+text-align:center;
+padding:20px;
+margin-top:30px;
 background:#000;
 color:gold;
 }
-</style></head><body><header>
+</style>
+</head>
+
+<body>
+
+<header>
 <h1>ЧАТ-БОТ</h1>
-<p>Это мой собственный первый чат-бот, который я создал.</p>
-<p>Наш босс — Мубориз</p>
-</header><div class="box"><h2>Задайте вопрос</h2><input id="question" placeholder="Напишите вопрос..."><br><button onclick="reply()">Спросить</button>
+<p class="subtitle">Это мой собственный первый чат-бот, который я создал.</p>
+</header>
 
-<div id="answer">
-Ответ появится здесь.
-</div></div><div class="footer">
-Связь с Муборизом: 992 011 900 303
-</div><script>
-function reply(){
+<nav>
+<button onclick="showContacts()">Контакты</button>
+<button onclick="showHelp()">Помощь</button>
+<button onclick="showSubscription()">Подписка</button>
+<button onclick="changeLang('ru')">Русский</button>
+<button onclick="changeLang('tj')">Тоҷикӣ</button>
+<button onclick="changeLang('en')">English</button>
+</nav>
 
-let q=document.getElementById("question").value.toLowerCase();
-let a="Я пока молодой чат-бот. Попробуйте другой вопрос.";
+<div class="section">
 
-if(q.includes("2+2")){
-a="Ответ: 4";
-}
-else if(q.includes("5+5")){
-a="Ответ: 10";
-}
-else if(q.includes("привет")){
-a="Привет! Рад вас видеть.";
-}
-else if(q.includes("кто твой босс")){
-a="Мой босс — Мубориз.";
-}
-else if(q.includes("номер")){
-a="Номер Мубориза: 992 011 900 303";
-}
-else if(q.includes("матем")){
-a="Я могу помочь с простыми математическими вопросами.";
+<div class="card">
+<h2>Главная страница</h2>
+<p>Добро пожаловать в ЧАТ-БОТ.</p>
+<p>Босс: Мубориз</p>
+</div>
+
+<div class="card">
+<h2>Поиск</h2>
+<input placeholder="Поиск по сайту">
+</div>
+
+<div class="chat-box">
+<h2>Чат</h2>
+
+<div id="messages">
+<div><b>Бот:</b> Привет! Я помощник Мубориза.</div>
+</div>
+
+<input id="userInput" placeholder="Введите вопрос">
+<button class="send-btn" onclick="sendMessage()">Отправить</button>
+<button onclick="speakQuestion()">🎤</button>
+</div>
+
+<div class="card">
+<h2>Новости</h2>
+<p>Сайт успешно запущен.</p>
+<p>Скоро появится настоящий ИИ.</p>
+</div>
+
+<div class="card">
+<h2>Справочник по математике</h2>
+<p>Сложение, вычитание, умножение и деление.</p>
+</div>
+
+<div class="card">
+<h2>Регистрация</h2>
+<input placeholder="Имя"><br><br>
+<input placeholder="Пароль">
+</div>
+
+</div>
+
+<footer>
+© ЧАТ-БОТ | Мубориз
+</footer>
+
+<script>
+
+function sendMessage(){
+
+let input=document.getElementById("userInput");
+let text=input.value.toLowerCase();
+
+let messages=document.getElementById("messages");
+
+messages.innerHTML += "<div><b>Вы:</b> "+text+"</div>";
+
+let answer="Извините, я пока не знаю ответ.";
+
+if(text.includes("привет"))
+answer="Привет! Рад видеть вас.";
+
+else if(text.includes("контакт"))
+answer="Босс: Мубориз. Телефон: 992 011 900 303";
+
+else if(text.includes("математика"))
+answer="Я могу помогать с простыми примерами.";
+
+else if(text=="2+2")
+answer="Ответ: 4";
+
+else if(text=="5+5")
+answer="Ответ: 10";
+
+else if(text=="10-3")
+answer="Ответ: 7";
+
+else if(text=="6*6")
+answer="Ответ: 36";
+
+else if(text=="12/3")
+answer="Ответ: 4";
+
+messages.innerHTML += "<div><b>Бот:</b> "+answer+"</div>";
+
+speechSynthesis.speak(new SpeechSynthesisUtterance(answer));
+
+input.value="";
 }
 
-document.getElementById("answer").innerHTML=a;
+function showContacts(){
+alert("Мубориз\nТелефон: 992 011 900 303");
 }
-</script></body>
+
+function showHelp(){
+alert("Задайте вопрос или пример по математике.");
+}
+
+function showSubscription(){
+alert("Раздел подписки скоро появится.");
+}
+
+function changeLang(lang){
+
+if(lang=="ru"){
+alert("Русский язык включён");
+}
+
+if(lang=="tj"){
+alert("Забони тоҷикӣ фаъол шуд");
+}
+
+if(lang=="en"){
+alert("English enabled");
+}
+
+}
+
+function speakQuestion(){
+
+const recognition =
+new(window.SpeechRecognition ||
+window.webkitSpeechRecognition)();
+
+recognition.lang='ru-RU';
+
+recognition.start();
+
+recognition.onresult=function(event){
+document.getElementById("userInput").value=
+event.results[0][0].transcript;
+};
+
+}
+
+</script>
+
+</body>
 </html>

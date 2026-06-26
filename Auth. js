@@ -1,27 +1,42 @@
 function login(){
 
-let user =
-prompt("Введите имя");
+let name = prompt("Введите ваше имя");
 
-if(user){
+if(!name) return;
 
 localStorage.setItem(
-"username",
-user
+"muboriz_username",
+name
 );
 
 alert(
-"Добро пожаловать, " + user
+"Добро пожаловать, " + name + "!"
 );
 
 }
+
+function logout(){
+
+localStorage.removeItem(
+"muboriz_username"
+);
+
+alert("Вы вышли из аккаунта");
 
 }
 
 function getUser(){
 
 return localStorage.getItem(
-"username"
+"muboriz_username"
 ) || "Гость";
+
+}
+
+function isLoggedIn(){
+
+return localStorage.getItem(
+"muboriz_username"
+) !== null;
 
 }

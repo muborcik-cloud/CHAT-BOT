@@ -1,1 +1,33 @@
+function solveMath(example){
 
+try{
+
+let result = eval(example);
+
+if(isNaN(result)){
+return "Ошибка";
+}
+
+return result;
+
+}catch{
+
+return "Ошибка в примере";
+
+}
+
+}
+
+function checkMath(text){
+
+let pattern = /^[0-9+\-*/(). ]+$/;
+
+if(pattern.test(text)){
+
+return "Ответ: " + solveMath(text);
+
+}
+
+return null;
+
+}

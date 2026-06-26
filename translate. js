@@ -1,1 +1,26 @@
+const dictionary = {
 
+"привет":"hello",
+"пока":"bye",
+"спасибо":"thank you",
+"да":"yes",
+"нет":"no",
+"сайт":"website",
+"чат":"chat",
+"бот":"bot"
+
+};
+
+function translateWord(word){
+
+word = word.toLowerCase();
+
+if(dictionary[word]){
+
+return dictionary[word];
+
+}
+
+return "Перевод не найден";
+
+}

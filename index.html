@@ -1,67 +1,204 @@
-<!-- ВСТАВЬ ВНУТРЬ <body> ПОСЛЕ ЗАГОЛОВКА -->
-
-<div style="text-align:center;margin:15px;">
-<button onclick="toggleTheme()">🌙 Тема</button>
-<button onclick="clearChat()">🗑 Очистить чат</button>
-<button onclick="quickMath()">➕ Математика</button>
-<button onclick="showContacts()">📞 Контакты</button>
-<button onclick="showHelp()">❓ Помощь</button>
-</div>
-
-<div id="clock" style="text-align:center;color:gold;"></div>
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ЧАТ-БОТ</title>
 
 <style>
-
-.logo{
-animation: glow 2s infinite alternate;
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial,sans-serif;
 }
 
-@keyframes glow{
-from{
-text-shadow:0 0 10px gold;
-}
-to{
-text-shadow:0 0 30px gold;
-}
-}
-
-.light{
-background:white !important;
-color:black !important;
-}
-
-.glow-btn{
-box-shadow:0 0 15px gold;
-}
-
-.message{
-margin:10px 0;
-padding:8px;
-border-radius:10px;
-background:#222;
-}
-
-.time{
-font-size:11px;
-color:#999;
+body{
+background:#0a0a0a;
+color:white;
+overflow-x:hidden;
 }
 
 #particles{
 position:fixed;
-top:0;
-left:0;
 width:100%;
 height:100%;
-pointer-events:none;
+top:0;
+left:0;
 z-index:-1;
 }
+
+header{
+text-align:center;
+padding:30px 15px;
+}
+
+.logo{
+font-size:42px;
+font-weight:bold;
+color:gold;
+text-shadow:0 0 20px gold;
+animation:glow 2s infinite alternate;
+}
+
+@keyframes glow{
+from{opacity:.7}
+to{opacity:1;text-shadow:0 0 35px gold;}
+}
+
+.subtitle{
+margin-top:10px;
+color:#ddd;
+font-size:18px;
+}
+
+.menu{
+display:flex;
+gap:10px;
+justify-content:center;
+flex-wrap:wrap;
+margin:20px;
+}
+
+button{
+background:black;
+border:2px solid gold;
+color:gold;
+padding:10px 15px;
+border-radius:10px;
+cursor:pointer;
+transition:.3s;
+}
+
+button:hover{
+background:gold;
+color:black;
+box-shadow:0 0 20px gold;
+}
+
+.chat{
+width:95%;
+max-width:900px;
+margin:auto;
+background:#111;
+border:2px solid gold;
+border-radius:15px;
+padding:15px;
+}
+
+.messages{
+height:350px;
+overflow-y:auto;
+padding:10px;
+}
+
+.user{
+background:gold;
+color:black;
+padding:10px;
+border-radius:10px;
+margin:8px 0;
+}
+
+.bot{
+background:#222;
+padding:10px;
+border-radius:10px;
+margin:8px 0;
+border-left:4px solid gold;
+}
+
+.time{
+font-size:11px;
+opacity:.7;
+margin-top:5px;
+}
+
+.input-area{
+display:flex;
+gap:10px;
+margin-top:15px;
+}
+
+input{
+flex:1;
+padding:12px;
+border:none;
+border-radius:10px;
+}
+
+.section{
+width:95%;
+max-width:900px;
+margin:20px auto;
+background:#111;
+border:1px solid #333;
+border-radius:15px;
+padding:20px;
+}
+
+h2{
+color:gold;
+margin-bottom:15px;
+}
+
+.langs{
+text-align:center;
+margin:15px;
+}
+
+.footer{
+text-align:center;
+padding:30px;
+color:#999;
+}
 </style>
+</head>
+
+<body>
 
 <canvas id="particles"></canvas>
 
-<div class="card">
+<header>
+<div class="logo">ЧАТ-БОТ</div>
+<div class="subtitle">
+Это мой собственный первый чат-бот, который я создал.
+</div>
+</header>
+
+<div class="langs">
+<button onclick="setLang('ru')">Русский</button>
+<button onclick="setLang('tj')">Тоҷикӣ</button>
+<button onclick="setLang('en')">English</button>
+</div>
+
+<div class="menu">
+<button onclick="showContacts()">Контакты</button>
+<button onclick="showHelp()">Помощь</button>
+<button onclick="clearChat()">Очистить чат</button>
+<button onclick="speakLast()">🔊 Озвучить</button>
+</div>
+
+<div class="chat">
+
+<div class="messages" id="messages">
+
+<div class="bot">
+Здравствуйте! Я ЧАТ-БОТ.
+<div class="time" id="startTime"></div>
+</div>
+
+</div>
+
+<div class="input-area">
+<input id="input" placeholder="Введите вопрос...">
+<button onclick="sendMessage()">Отправить</button>
+</div>
+
+</div>
+
+<div class="section">
 <h2>📚 Таблица умножения</h2>
-<p>
 2×2=4<br>
 3×3=9<br>
 4×4=16<br>
@@ -71,122 +208,183 @@ z-index:-1;
 8×8=64<br>
 9×9=81<br>
 10×10=100
-</p>
 </div>
 
-<div class="card">
+<div class="section">
 <h2>🧮 Калькулятор</h2>
-<input id="calcInput" placeholder="Например: 5+5">
-<button onclick="calculate()">Решить</button>
-<div id="calcResult"></div>
+<input id="calc" placeholder="Например: 5+5">
+<button onclick="calc()">Решить</button>
+<p id="calcResult"></p>
 </div>
 
-<div class="card">
+<div class="section">
 <h2>🇬🇧 Английские слова</h2>
-<p>Hello — Привет</p>
-<p>Good — Хорошо</p>
-<p>Book — Книга</p>
-<p>House — Дом</p>
-<p>Money — Деньги</p>
+Hello — Привет<br><br>
+Good — Хорошо<br><br>
+Book — Книга<br><br>
+House — Дом<br><br>
+Money — Деньги
 </div>
 
-<div class="card">
+<div class="section">
 <h2>🏆 Викторина</h2>
-<p>Сколько будет 2+2?</p>
-<button onclick="alert('Правильно!')">4</button>
-<button onclick="alert('Неверно')">5</button>
+Сколько будет 2+2?<br><br>
+<button onclick="alert('Верно!')">4</button>
+<button onclick="alert('Неверно!')">5</button>
+</div>
+
+<div class="footer">
+Наш босс: Мубориз<br>
+Телефон: +992 011 900 303
 </div>
 
 <script>
 
-function toggleTheme(){
-document.body.classList.toggle('light');
+document.getElementById("startTime").innerHTML =
+new Date().toLocaleTimeString();
+
+let lastBotText="Здравствуйте!";
+
+function sendMessage(){
+
+let input=document.getElementById("input");
+let text=input.value.trim();
+
+if(text==="") return;
+
+let box=document.getElementById("messages");
+
+box.innerHTML+=`
+<div class="user">
+${text}
+<div class="time">${new Date().toLocaleTimeString()}</div>
+</div>
+`;
+
+let answer="Я пока ещё простой бот.";
+
+let t=text.toLowerCase();
+
+if(t.includes("привет"))
+answer="Привет!";
+
+else if(t.includes("как дела"))
+answer="Отлично!";
+
+else if(t.includes("контакты"))
+answer="Наш босс: Мубориз. Телефон: +992 011 900 303";
+
+else if(t.includes("математика"))
+answer="Я могу помогать с простыми примерами.";
+
+else if(t==="2+2")
+answer="4";
+
+else if(t==="5+5")
+answer="10";
+
+else if(t==="10*10")
+answer="100";
+
+box.innerHTML+=`
+<div class="bot">
+${answer}
+<div class="time">${new Date().toLocaleTimeString()}</div>
+</div>
+`;
+
+lastBotText=answer;
+
+input.value="";
+box.scrollTop=box.scrollHeight;
 }
 
 function clearChat(){
-document.getElementById('messages').innerHTML='';
+document.getElementById("messages").innerHTML="";
 }
 
-function quickMath(){
-document.getElementById('userInput').value='математика';
+function showContacts(){
+alert("Наш босс: Мубориз\nТелефон: +992 011 900 303");
 }
 
-function updateClock(){
-let now=new Date();
-document.getElementById('clock').innerHTML=
-now.toLocaleTimeString();
+function showHelp(){
+alert("Задавайте простые вопросы и примеры.");
 }
-setInterval(updateClock,1000);
 
-function calculate(){
+function calc(){
 try{
-let result=eval(
-document.getElementById('calcInput').value
-);
-document.getElementById('calcResult').innerHTML=
-'Ответ: '+result;
+let v=document.getElementById("calc").value;
+document.getElementById("calcResult").innerHTML=
+"Ответ: "+eval(v);
 }catch{
-document.getElementById('calcResult').innerHTML=
-'Ошибка';
+document.getElementById("calcResult").innerHTML=
+"Ошибка";
 }
 }
 
-const canvas=document.getElementById('particles');
-const ctx=canvas.getContext('2d');
+function speakLast(){
+let speech=new SpeechSynthesisUtterance(lastBotText);
+speech.lang="ru-RU";
+speechSynthesis.speak(speech);
+}
+
+function setLang(lang){
+
+if(lang==="ru"){
+alert("Русский язык включён");
+}
+
+if(lang==="tj"){
+alert("Забони тоҷикӣ фаъол шуд");
+}
+
+if(lang==="en"){
+alert("English enabled");
+}
+
+}
+
+const canvas=document.getElementById("particles");
+const ctx=canvas.getContext("2d");
 
 canvas.width=window.innerWidth;
 canvas.height=window.innerHeight;
 
 let particles=[];
 
-for(let i=0;i<60;i++){
+for(let i=0;i<40;i++){
 particles.push({
 x:Math.random()*canvas.width,
 y:Math.random()*canvas.height,
-r:Math.random()*3+1,
-dx:(Math.random()-0.5),
-dy:(Math.random()-0.5)
+r:Math.random()*4+1,
+s:Math.random()*2+0.5
 });
 }
 
 function animate(){
+ctx.clearRect(0,0,canvas.width,canvas.height);
 
-ctx.clearRect(0,0,
-canvas.width,
-canvas.height);
-
-ctx.fillStyle='gold';
+ctx.fillStyle="gold";
 
 particles.forEach(p=>{
-
 ctx.beginPath();
-
-ctx.arc(
-p.x,
-p.y,
-p.r,
-0,
-Math.PI*2
-);
-
+ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
 ctx.fill();
 
-p.x+=p.dx;
-p.y+=p.dy;
+p.y+=p.s;
 
-if(p.x<0)p.x=canvas.width;
-if(p.x>canvas.width)p.x=0;
-if(p.y<0)p.y=canvas.height;
-if(p.y>canvas.height)p.y=0;
-
+if(p.y>canvas.height){
+p.y=0;
+p.x=Math.random()*canvas.width;
+}
 });
 
-requestAnimationFrame(
-animate
-);
-
+requestAnimationFrame(animate);
 }
 
 animate();
 
 </script>
+
+</body>
+  </html>

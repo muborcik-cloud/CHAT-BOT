@@ -7,13 +7,15 @@ const dictionary = {
 "нет":"no",
 "сайт":"website",
 "чат":"chat",
-"бот":"bot"
+"бот":"bot",
+"помощь":"help",
+"контакты":"contacts"
 
 };
 
 function translateWord(word){
 
-word = word.toLowerCase();
+word = word.toLowerCase().trim();
 
 if(dictionary[word]){
 
@@ -22,5 +24,19 @@ return dictionary[word];
 }
 
 return "Перевод не найден";
+
+}
+
+function translateText(text){
+
+let words = text.split(" ");
+
+let result = words.map(word => {
+
+return dictionary[word.toLowerCase()] || word;
+
+});
+
+return result.join(" ");
 
 }

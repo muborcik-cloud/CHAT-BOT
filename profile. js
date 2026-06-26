@@ -1,29 +1,52 @@
 let profile = {
 
 name:"Гость",
-messages:0
+messages:0,
+created:new Date().toLocaleDateString()
 
 };
 
-function saveProfile(){
-
-localStorage.setItem(
-"profile",
-JSON.stringify(profile)
-);
-
-}
-
 function loadProfile(){
 
-let data =
-localStorage.getItem("profile");
+const data =
+localStorage.getItem("muboriz_profile");
 
 if(data){
 
 profile = JSON.parse(data);
 
 }
+
+}
+
+function saveProfile(){
+
+localStorage.setItem(
+"muboriz_profile",
+JSON.stringify(profile)
+);
+
+}
+
+function setUser(name){
+
+profile.name = name;
+
+saveProfile();
+
+}
+
+function addMessage(){
+
+profile.messages++;
+
+saveProfile();
+
+}
+
+function getProfile(){
+
+return profile;
 
 }
 

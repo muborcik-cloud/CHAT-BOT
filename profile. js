@@ -1,1 +1,30 @@
+let profile = {
 
+name:"Гость",
+messages:0
+
+};
+
+function saveProfile(){
+
+localStorage.setItem(
+"profile",
+JSON.stringify(profile)
+);
+
+}
+
+function loadProfile(){
+
+let data =
+localStorage.getItem("profile");
+
+if(data){
+
+profile = JSON.parse(data);
+
+}
+
+}
+
+loadProfile();

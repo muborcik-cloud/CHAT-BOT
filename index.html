@@ -1,1 +1,51 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Muboriz AI</title>
 
+<link rel="stylesheet" href="style.css">
+
+<script src="Auth.js"></script>
+<script src="profile.js"></script>
+<script src="math.js"></script>
+<script src="translate.js"></script>
+<script src="voice.js"></script>
+<script src="api.js"></script>
+<script src="chat.js"></script>
+</head>
+
+<body>
+
+<header>
+<h1>Muboriz AI</h1>
+<p>Умный чат-бот</p>
+</header>
+
+<div class="hero">
+<h2>Добро пожаловать</h2>
+<p>Ваш личный AI помощник</p>
+</div>
+
+<div id="messages" style="padding:20px;height:300px;overflow:auto;background:white;color:black;"></div>
+
+<div style="padding:20px;">
+<input
+id="userInput"
+type="text"
+placeholder="Напишите сообщение..."
+style="width:70%;padding:10px;"
+>
+
+<button onclick="sendMessage()">
+Отправить
+</button>
+
+<button onclick="login()">
+Войти
+</button>
+</div>
+
+</body>
+</html>

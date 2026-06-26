@@ -1,1 +1,27 @@
+function login(){
 
+let user =
+prompt("Введите имя");
+
+if(user){
+
+localStorage.setItem(
+"username",
+user
+);
+
+alert(
+"Добро пожаловать, " + user
+);
+
+}
+
+}
+
+function getUser(){
+
+return localStorage.getItem(
+"username"
+) || "Гость";
+
+}

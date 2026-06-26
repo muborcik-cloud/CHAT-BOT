@@ -2,17 +2,19 @@ function solveMath(example){
 
 try{
 
-let result = eval(example);
+const result = Function(
+'"use strict"; return (' + example + ')'
+)();
 
 if(isNaN(result)){
-return "Ошибка";
+return null;
 }
 
 return result;
 
 }catch{
 
-return "Ошибка в примере";
+return null;
 
 }
 
@@ -20,11 +22,19 @@ return "Ошибка в примере";
 
 function checkMath(text){
 
-let pattern = /^[0-9+\-*/(). ]+$/;
+const pattern =
+/^[0-9+\-*/(). ]+$/;
 
 if(pattern.test(text)){
 
-return "Ответ: " + solveMath(text);
+const answer =
+solveMath(text);
+
+if(answer !== null){
+
+return "Ответ: " + answer;
+
+}
 
 }
 

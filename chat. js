@@ -1,33 +1,93 @@
 function sendMessage() {
 
-let input = document.getElementById("userInput");
-let messages = document.getElementById("messages");
+    let input = document.getElementById("userInput");
+    let messages = document.getElementById("messages");
 
-let text = input.value.trim();
+    let text = input.value.trim();
 
-if(text==="") return;
+    if(text === "") return;
 
-messages.innerHTML +=
-"<p><b>Вы:</b> "+text+"</p>";
+    messages.innerHTML += `
+    <div class="user-message">
+        ${text}
+    </div>
+    `;
 
-let answer = "Я пока не знаю ответ.";
+    let answer = "";
 
-if(text.toLowerCase().includes("привет"))
-answer = "Привет! Я чат-бот Мубориза.";
+    let lower = text.toLowerCase();
 
-else if(text.toLowerCase().includes("контакты"))
-answer = "Наш босс: Мубориз. Телефон: +992 011 900 303";
+    if(lower.includes("привет")){
+        answer = "Привет! Я Muboriz AI. Чем могу помочь?";
+    }
 
-else if(text.toLowerCase().includes("помощь"))
-answer = "Я могу отвечать на простые вопросы и помогать с математикой.";
+    else if(lower.includes("как дела")){
+        answer = "Отлично! Готов помогать тебе.";
+    }
 
-else if(text.toLowerCase().includes("сайт"))
-answer = "Этот сайт создан Муборизом.";
+    else if(lower.includes("кто тебя создал")){
+        answer = "Меня создал Мубориз.";
+    }
 
-messages.innerHTML +=
-"<p style='color:gold'><b>Бот:</b> "+answer+"</p>";
+    else if(lower.includes("контакт")){
+        answer = "Телефон: +992 011 900 303";
+    }
 
-messages.scrollTop = messages.scrollHeight;
+    else if(lower.includes("сайт")){
+        answer = "Я могу рассказывать о сайтах и веб-разработке.";
+    }
 
-input.value="";
+    else if(lower.includes("цена")){
+        answer = "Стоимость зависит от проекта.";
+    }
+
+    else if(lower.includes("душанбе")){
+        answer = "Душанбе — столица Таджикистана.";
+    }
+
+    else if(lower.includes("время")){
+        answer = new Date().toLocaleTimeString();
+    }
+
+    else if(lower.includes("дата")){
+        answer = new Date().toLocaleDateString();
+    }
+
+    else if(lower.includes("спасибо")){
+        answer = "Всегда пожалуйста!";
+    }
+
+    else if(lower.includes("помощь")){
+        answer = "Я могу отвечать на вопросы, считать примеры и помогать с сайтами.";
+    }
+
+    else {
+        const randomAnswers = [
+            "Интересный вопрос.",
+            "Расскажи подробнее.",
+            "Я думаю над ответом.",
+            "Можешь уточнить?",
+            "Это хорошая идея.",
+            "Я пока изучаю этот вопрос.",
+            "Попробуй спросить иначе."
+        ];
+
+        answer = randomAnswers[
+            Math.floor(Math.random() * randomAnswers.length)
+        ];
+    }
+
+    setTimeout(() => {
+
+        messages.innerHTML += `
+        <div class="bot-message">
+            🤖 ${answer}
+        </div>
+        `;
+
+        messages.scrollTop = messages.scrollHeight;
+
+    }, 500);
+
+    input.value = "";
 }

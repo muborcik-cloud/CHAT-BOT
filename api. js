@@ -1,5 +1,29 @@
 function futureAI(question){
 
-return "ИИ будет подключён позже через API. Ваш вопрос: " + question;
+const answers = {
+
+"привет":"Привет! Рад тебя видеть.",
+"как дела":"У меня всё отлично.",
+"кто тебя создал":"Меня создал Мубориз.",
+"контакты":"Телефон: +992 011 900 303",
+"сайт":"Это проект Muboriz AI."
+
+};
+
+const q = question.toLowerCase().trim();
+
+if(answers[q]){
+
+return answers[q];
+
+}
+
+return "Я пока не знаю точный ответ на этот вопрос.";
+
+}
+
+function getAIAnswer(question){
+
+return futureAI(question);
 
 }

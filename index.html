@@ -3,19 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>Muboriz AI</title>
 
 <link rel="stylesheet" href="style.css">
 
-<script src="Auth.js"></script>
-<script src="profile.js"></script>
-<script src="math.js"></script>
-<script src="translate.js"></script>
-<script src="voice.js"></script>
-<script src="api.js"></script>
-<script src="chat.js"></script>
-
+<script src="chat.js" defer></script>
 </head>
 <body>
 
@@ -27,32 +19,24 @@
 <div class="chat-container">
 
 <div id="messages" class="messages">
-
 <div class="bot-message">
 🤖 Привет! Я Muboriz AI.
 </div>
-
 </div>
 
 <div class="input-box">
-
 <input
-id="userInput"
 type="text"
+id="userInput"
 placeholder="Напишите сообщение..."
 >
 
 <button onclick="sendMessage()">
-🚀
+Отправить
 </button>
-
 </div>
 
 </div>
-
-<footer>
-Создано Муборизом
-</footer>
 
 </body>
 </html>
